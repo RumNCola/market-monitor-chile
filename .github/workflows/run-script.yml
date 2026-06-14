@@ -1,0 +1,29 @@
+name: Actualizar datos financieros
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update-excel:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar repo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar script
+        run: python actualizar_excel.py
+
+      - name: Guardar archivo actualizado
+        uses: actions/upload-artifact@v4
+        with:
+          name: input_actualizado
+          path: input_actualizado.xlsx
